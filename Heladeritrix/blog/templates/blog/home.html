@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Heladeritrix 🍨</title>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Heladeritrix</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Contacto</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+<section class="productos">
+    <div class="card">
+        <img src="{% static 'blog/fresa.jpg' %}" alt="Fresa">
+        <h3>Helado de Fresa</h3>
+        <p>Suave, cremoso y frutal 🍓</p>
+    </div>
+    <div class="card">
+        <img src="{% static 'blog/choco.jpg' %}" alt="Chocolate">
+        <h3>Helado de Chocolate</h3>
+        <p>Para los amantes del cacao 🍫</p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 Heladeritrix — Todos los derechos reservados 🍨</p>
+</footer>
+</body>
+</html>
