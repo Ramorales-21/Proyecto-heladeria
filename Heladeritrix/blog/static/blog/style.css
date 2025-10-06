@@ -102,3 +102,75 @@ footer {
     margin-top: 50px;
     font-size: 14px;
 }
+.contacto {
+    background-color: #e3f8ff;
+    color: #004e74;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    border-top: 3px solid #aee1f9;
+    border-radius: 10px 10px 0 0;
+}
+
+.contacto h2 {
+    font-family: 'Lobster', cursive;
+    font-size: 28px;
+    margin-bottom: 15px;
+}d
+
+.contacto p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 1000;
+}
+
+/* Compensar altura del header para que no tape el contenido */
+body {
+    padding-top: 90px;
+}
+/* --- Tu código original intacto arriba --- */
+
+/* 🔽 Modal (ventana emergente) */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    animation: popIn 0.3s ease;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #004e74;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}   

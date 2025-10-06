@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Heladeritrix 🍨</title>
 
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
@@ -21,26 +20,136 @@
             <ul>
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#">Productos</a></li>
-                <li><a href="#">Contacto</a></li>
-                
+                <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
     </header>
-<section class="productos">
-    <div class="card">
-        <img src="{% static 'blog/fresa.jpg' %}" alt="Fresa">
-        <h3>Helado de Fresa</h3>
-        <p>Suave, cremoso y frutal 🍓</p>
-    </div>
-    <div class="card">
-        <img src="{% static 'blog/choco.jpg' %}" alt="Chocolate">
-        <h3>Helado de Chocolate</h3>
-        <p>Para los amantes del cacao 🍫</p>
-    </div>
-</section>
 
-<footer>
-    <p>© 2025 Heladeritrix — Todos los derechos reservados 🍨</p>
-</footer>
+    <section class="productos">
+        <!-- Primera fila -->
+        <div class="card" data-flavor="fresa">
+            <img src="{% static 'blog/fresa.jpg' %}" alt="Fresa">
+            <h3>Helado de Fresa</h3>
+            <p>Suave, cremoso y frutal 🍓</p>
+        </div>
+
+        <div class="card" data-flavor="chocolate">
+            <img src="{% static 'blog/choco.jpg' %}" alt="Chocolate">
+            <h3>Helado de Chocolate</h3>
+            <p>Para los amantes del cacao 🍫</p>
+        </div>
+
+        <div class="card" data-flavor="vainilla">
+            <img src="{% static 'blog/vainilla.jpg' %}" alt="Vainilla">
+            <h3>Helado de Vainilla</h3>
+            <p>Clásico, suave y aromático 🍨</p>
+        </div>
+
+        <!-- Segunda fila -->
+        <div class="card" data-flavor="dulce_de_leche">
+            <img src="{% static 'blog/dulce_de_leche.jpg' %}" alt="Dulce de Leche">
+            <h3>Helado de Dulce de Leche</h3>
+            <p>Dulce, cremoso y tradicional 🥛</p>
+        </div>
+
+        <div class="card" data-flavor="chocolate_dubai">
+            <img src="{% static 'blog/chocolate_dubai.jpg' %}" alt="Chocolate Dubai">
+            <h3>Helado Chocolate Dubai</h3>
+            <p>Intenso, exótico y exquisito 🍫✨</p>
+        </div>
+
+        <div class="card" data-flavor="frutos_rojos">
+            <img src="{% static 'blog/frutos_rojos.jpg' %}" alt="Frutos Rojos">
+            <h3>Helado Frutos Rojos</h3>
+            <p>Fresco, dulce y lleno de sabor 🍒</p>
+        </div>
+    </section>
+
+    <section id="contacto" class="contacto">
+        <h2>Contacto</h2>
+        <p>📧 Email: contacto@heladeritrix.com</p>
+        <p>📞 Teléfono: +54 11 5555-5555</p>
+        <p>📍 Dirección: Av. Dulce 123, Buenos Aires</p>
+    </section>
+
+    <footer>
+        <p>© 2025 Heladeritrix — Todos los derechos reservados 🍨</p>
+    </footer>
+
+    <!-- 🔽 Modal oculto -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+
+    <!-- 🔽 Script dentro del HTML -->
+    <script>
+        // Header ocultable al hacer scroll
+        const header = document.querySelector("header");
+        let lastScrollY = 0;
+        window.addEventListener("scroll", () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                header.style.transform = "translateY(-100%)";
+            } else {
+                header.style.transform = "translateY(0)";
+            }
+            lastScrollY = currentScrollY;
+        });
+
+        // Modal interactivo
+        const modal = document.getElementById("modal");
+        const modalTitle = document.getElementById("modal-title");
+        const modalText = document.getElementById("modal-text");
+        const closeBtn = document.querySelector(".close-btn");
+
+        const sabores = {
+            fresa: {
+                titulo: "Helado de Fresa 🍓",
+                descripcion: "Hecho con fresas naturales seleccionadas, este helado ofrece una textura cremosa y un sabor fresco y dulce. Ideal para los amantes de las frutas."
+            },
+            chocolate: {
+                titulo: "Helado de Chocolate 🍫",
+                descripcion: "Elaborado con cacao premium, su sabor intenso y su textura suave lo hacen el favorito de los más golosos. Perfecto con un toque de nueces o dulce de leche."
+            },
+            vainilla: {
+                titulo: "Helado de Vainilla 🍦",
+                descripcion: "Clásico y delicado, hecho con vainas naturales. Su sabor suave y cremoso lo convierte en el favorito de todos."
+            },
+            dulce_de_leche: {
+                titulo: "Helado de Dulce de Leche 🥛",
+                descripcion: "Rico, cremoso y dulce, preparado con dulce de leche artesanal. Un sabor tradicional que encanta a grandes y chicos."
+            },
+            chocolate_dubai: {
+                titulo: "Helado Chocolate Dubai 🍫✨",
+                descripcion: "Exquisito y lujoso, con chocolate intenso y un toque de especias. Una experiencia única para los amantes del chocolate premium."
+            },
+            frutos_rojos: {
+                titulo: "Helado Frutos Rojos 🍒",
+                descripcion: "Mezcla de frutas rojas frescas con un toque dulce, ideal para quienes buscan un sabor afrutado y refrescante."
+            }
+        };
+
+        document.querySelectorAll(".card").forEach(card => {
+            card.addEventListener("click", () => {
+                const flavor = card.getAttribute("data-flavor");
+                const info = sabores[flavor];
+                modalTitle.textContent = info.titulo;
+                modalText.textContent = info.descripcion;
+                modal.style.display = "flex";
+            });
+        });
+
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) modal.style.display = "none";
+        });
+    </script>
 </body>
 </html>
