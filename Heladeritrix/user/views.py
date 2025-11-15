@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.http import HttpResponse
 
 def user_home(request):
-    return render(request, 'user/user.html')
+    f = open ("../Heladeritrix/blog/templates/blog/user.html")
+    response = HttpResponse(f.read())
+    f.close()
+    return response
 
 def login_view(request):
     if request.method == 'POST':
@@ -16,7 +20,9 @@ def login_view(request):
             return redirect('home')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
-    return render(request, 'user/login.html')
+    f = open ("../Heladeritrix/user/templates/user/login.html")
+    response = HttpResponse(f.read())
+    f.close()
 
 def register_view(request):
     if request.method == 'POST':
@@ -28,4 +34,6 @@ def register_view(request):
             User.objects.create_user(username=username, password=password)
             messages.success(request, 'Usuario creado correctamente')
             return redirect('login')
-    return render(request, 'user/register.html')
+    f = open ("../Heladeritrix/user/templates/user/register.html")
+    response = HttpResponse(f.read())
+    f.close()
