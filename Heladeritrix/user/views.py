@@ -20,7 +20,7 @@ def login_view(request):
             return redirect('home')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
-    f = open ("../Heladeritrix/user/templates/user/login.html")
+    f = open ("../Heladeritrix/blog/templates/blog/login.html")
     response = HttpResponse(f.read())
     f.close()
 
@@ -34,6 +34,6 @@ def register_view(request):
             User.objects.create_user(username=username, password=password)
             messages.success(request, 'Usuario creado correctamente')
             return redirect('login')
-    f = open ("../Heladeritrix/user/templates/user/register.html")
+    f = open ("../Heladeritrix/blog/templates/blog/register.html")
     response = HttpResponse(f.read())
     f.close()
