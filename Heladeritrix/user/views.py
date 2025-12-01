@@ -1,39 +1,46 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib import messages
-from django.http import HttpResponse
+from django.contrib.auth import login as auth_login, authenticate
+from .forms import CustomLoginForm  # <-- esto es clave
 
+# Vista para el home del usuario
 def user_home(request):
-    f = open ("../Heladeritrix/blog/templates/blog/user.html")
-    response = HttpResponse(f.read())
-    f.close()
-    return response
+    return render(request, "user/user_home.html")
 
+# Vista para login
 def login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
+    form = CustomLoginForm(request, data=request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            user = form.get_user()
+            auth_login(request, user)
+            messages.success(request, f"¡Bienvenido {user.username}!")
+            return redirect('blog:home')  # <-- asegúrate de que exista 'blog:home'
         else:
-            messages.error(request, 'Usuario o contraseña incorrectos')
-    f = open ("../Heladeritrix/blog/templates/blog/login.html")
-    response = HttpResponse(f.read())
-    f.close()
+            messages.error(request, "Usuario o contraseña incorrectos")
+    return render(request, "user/login.html", {"form": form})
 
+# Vista para registro
 def register_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'Ese usuario ya existe')
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)  # loguea al usuario automáticamente
+            messages.success(request, "¡Cuenta creada con éxito!")
+            return redirect("home")  # <-- asegúrate de tener url name="home"
         else:
-            User.objects.create_user(username=username, password=password)
-            messages.success(request, 'Usuario creado correctamente')
-            return redirect('login')
-    f = open ("../Heladeritrix/blog/templates/blog/register.html")
-    response = HttpResponse(f.read())
-    f.close()
+            for field in form.errors:
+                for error in form.errors[field]:
+                    messages.error(request, f"{field}: {error}")
+    else:
+        form = UserCreationForm()
+    return render(request, "user/register.html", {"form": form})
+
+# Vista para logout (opcional)
+def logout_view(request):
+    auth_logout(request)
+    messages.info(request, "Has cerrado sesión")
+    return redirect("home")

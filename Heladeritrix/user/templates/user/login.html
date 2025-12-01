@@ -1,0 +1,88 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    
+    <h1>Iniciar Sesión</h1>
+    <p class="subtitle">Ingresá a tu cuenta</p>
+
+    {% if messages %}
+        <div class="popup-message">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+
+        <div class="form-group" style="position: relative;">
+    {{ form.password.label_tag }}
+    {{ form.password }}
+    <button type="button" id="togglePassword" class="toggle-password-btn">
+        👁️
+    </button>
+</div>
+
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        <a href="{% url 'blog:home' %}" class="btn btn-secondary" style="margin-left:10px;">Volver atrás</a>
+    </form>
+
+    <p class="link-text">
+        ¿No tenés cuenta? <a href="{% url 'user:register' %}">Registrate</a>
+    </p>
+</div>
+
+<style>
+/* Estilo popup centrado */
+.popup-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+.alert {
+    background: #f44336;
+    color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn-back {
+    background-color: #ccc;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+.btn-back:hover {
+    background-color: #aaa;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.querySelector('.password-input');
+
+    togglePassword.addEventListener("click", function() {
+        const type = passwordInput.getAttribute("type") === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute("type", type);
+        this.textContent = type === "password" ? "👁️" : "🙈";
+    });
+});
+</script>
+{% endblock %}

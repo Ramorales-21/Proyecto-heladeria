@@ -8,14 +8,12 @@ from django.shortcuts import render
 def home(request):
     return render(request, 'blog/home.html')
 
-def login(request):
-    f = open ("../Heladeritrix/blog/templates/blog/login.html")
-    response = HttpResponse(f.read())
-    f.close()
-    return response
+from django.shortcuts import render
 
+def login(request):
+    return render(request, 'blog/login.html')
+    return response
+    
 def register(request):
-    f = open ("../Heladeritrix/blog/templates/blog/register.html")
-    response = HttpResponse(f.read())
-    f.close()
+    return render(request, 'blog/register.html')
     return response

@@ -1,0 +1,80 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Registrarse{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Registrarse</h1>
+
+    {% if messages %}
+        <div class="popup-message">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+<button type="button" class="btn-back" onclick="history.back()">⬅ Volver</button>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+
+        <div class="form-group">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+        </div>
+
+        <div class="form-group">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Crear cuenta</button>
+    </form>
+
+    <p class="link-text">
+        ¿Ya tenés cuenta? <a href="{% url 'user:login' %}">Iniciar sesión</a>
+    </p>
+</div>
+
+<style>
+/* Estilo popup centrado */
+.popup-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+.alert {
+    background: #f44336;
+    color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.btn-back {
+    background-color: #ccc;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+.btn-back:hover {
+    background-color: #aaa;
+}
+</style>
+{% endblock %}

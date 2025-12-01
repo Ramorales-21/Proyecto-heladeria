@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    "user",
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'heladeria_db',      # el nombre de tu base en MySQL
         'USER': 'root',              # tu usuario de MySQL
-        'PASSWORD': 'masivobro', # la contraseña
+        'PASSWORD': '3346', # la contraseña
         'HOST': 'localhost',         # si es local
         'PORT': '3306',              # puerto por defecto
         'OPTIONS': {
@@ -131,3 +131,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_CHARSET = "utf-8"
+FILE_CHARSET = "utf-8"
