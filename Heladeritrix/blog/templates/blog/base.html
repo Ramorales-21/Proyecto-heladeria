@@ -37,6 +37,7 @@
             <li><a href="{% url 'user:user' %}">Usuario</a></li>
         </ul>
     </nav>
+    
 </header>
 <!-- Modal de mensajes -->
 <div id="message-modal" class="message-modal" style="display:none;">
@@ -99,6 +100,7 @@ function showMessage(message) {
     setTimeout(() => { modal.style.display = 'none'; }, 3000);
 }
 </script>
+{% endblock %}
 </body>
 </html>
-{% endblock %}
+

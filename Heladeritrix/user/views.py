@@ -30,7 +30,7 @@ def register_view(request):
             user = form.save()
             auth_login(request, user)  # loguea al usuario automáticamente
             messages.success(request, "¡Cuenta creada con éxito!")
-            return redirect("home")  # <-- asegúrate de tener url name="home"
+            return redirect('blog:home') # <-- asegúrate de tener url name="home"
         else:
             for field in form.errors:
                 for error in form.errors[field]:
@@ -43,4 +43,4 @@ def register_view(request):
 def logout_view(request):
     auth_logout(request)
     messages.info(request, "Has cerrado sesión")
-    return redirect("home")
+    return redirect('blog:home')
